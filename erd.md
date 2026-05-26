@@ -1,11 +1,12 @@
+```mermaid
 erDiagram
-USERS {
-INTEGER id PK
-VARCHAR email UK
-VARCHAR full_name
-JSONB settings
-TIMESTAMP created_at
-}
+    USERS {
+        INTEGER id PK
+        VARCHAR email UK
+        VARCHAR full_name
+        JSONB settings
+        TIMESTAMP created_at
+    }
 
     TASKS {
         INTEGER id PK
@@ -69,14 +70,15 @@ TIMESTAMP created_at
     }
 
     USERS ||--o{ TASKS : "пользователь создаёт задачи"
-    USERS ||--o{ TASK_HISTORY : "пользователь имеет историю"
-    USERS ||--o{ TIME_SLOTS : "пользователь имеет слоты"
-    USERS ||--o{ AI_RECOMMENDATIONS : "пользователь получает рекомендации"
+    USERS ||--o{ TASK_HISTORY : "пользователь имеет историю задач"
+    USERS ||--o{ TIME_SLOTS : "пользователь имеет слоты времени"
+    USERS ||--o{ AI_RECOMMENDATIONS : "пользователь получает AI-рекомендации"
     USERS ||--o{ NOTIFICATIONS : "пользователь получает уведомления"
     USERS ||--o{ WEEKLY_REPORTS : "пользователь получает отчёты"
 
     TASKS ||--o{ TASKS : "задача содержит подзадачи"
-    TASKS ||--o| TIME_SLOTS : "задача занимает слот"
-    TASKS ||--o{ TASK_HISTORY : "задача имеет историю"
+    TASKS ||--o| TIME_SLOTS : "задача занимает слот времени"
+    TASKS ||--o{ TASK_HISTORY : "задача имеет историю выполнения"
     TASKS ||--o{ AI_RECOMMENDATIONS : "задача получает рекомендации"
     TASKS ||--o{ NOTIFICATIONS : "задача вызывает уведомления"
+```
