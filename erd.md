@@ -81,5 +81,3 @@ timestamp created_at
     Task ||--o{ TaskHistory : "has history"
     Task ||--o{ AIRecommendation : "receives"
     Task ||--o{ Notification : "triggers"
-
-у меня только так заработало
