@@ -1,83 +1,82 @@
 erDiagram
-User {
-int id PK
-string email
-string password_hash
-string full_name
-jsonb settings
-timestamp created_at
+USERS {
+INTEGER id PK
+VARCHAR email UK
+VARCHAR full_name
+JSONB settings
+TIMESTAMP created_at
 }
 
-    Task {
-        int id PK
-        int user_id FK
-        int parent_task_id FK
-        string title
-        text description
-        decimal estimated_hours
-        decimal actual_hours
-        string status
-        timestamp deadline
-        timestamp created_at
-        timestamp completed_at
+    TASKS {
+        INTEGER id PK
+        INTEGER user_id FK
+        INTEGER parent_task_id FK
+        VARCHAR title
+        TEXT description
+        DECIMAL estimated_hours
+        DECIMAL actual_hours
+        VARCHAR status
+        TIMESTAMP deadline
+        TIMESTAMP created_at
+        TIMESTAMP completed_at
     }
 
-    TaskHistory {
-        int id PK
-        int user_id FK
-        int task_id FK
-        decimal estimated_hours
-        decimal actual_hours
-        decimal deviation_percent
-        timestamp completed_at
+    TASK_HISTORY {
+        INTEGER id PK
+        INTEGER user_id FK
+        INTEGER task_id FK
+        DECIMAL estimated_hours
+        DECIMAL actual_hours
+        DECIMAL deviation_percent
+        TIMESTAMP completed_at
     }
 
-    TimeSlot {
-        int id PK
-        int user_id FK
-        int task_id FK
-        timestamp start_time
-        timestamp end_time
-        string type
+    TIME_SLOTS {
+        INTEGER id PK
+        INTEGER user_id FK
+        INTEGER task_id FK
+        TIMESTAMP start_time
+        TIMESTAMP end_time
+        VARCHAR type
     }
 
-    AIRecommendation {
-        int id PK
-        int user_id FK
-        int task_id FK
-        string type
-        jsonb content
-        string status
-        timestamp created_at
+    AI_RECOMMENDATIONS {
+        INTEGER id PK
+        INTEGER user_id FK
+        INTEGER task_id FK
+        VARCHAR type
+        JSONB content
+        VARCHAR status
+        TIMESTAMP created_at
     }
 
-    Notification {
-        int id PK
-        int user_id FK
-        int task_id FK
-        string type
-        text message
-        boolean is_read
-        timestamp created_at
+    NOTIFICATIONS {
+        INTEGER id PK
+        INTEGER user_id FK
+        INTEGER task_id FK
+        VARCHAR type
+        TEXT message
+        BOOLEAN is_read
+        TIMESTAMP created_at
     }
 
-    WeeklyReport {
-        int id PK
-        int user_id FK
-        date week_start
-        jsonb data
-        timestamp generated_at
+    WEEKLY_REPORTS {
+        INTEGER id PK
+        INTEGER user_id FK
+        DATE week_start
+        JSONB data
+        TIMESTAMP generated_at
     }
 
-    User ||--o{ Task : "has"
-    User ||--o{ TaskHistory : "has"
-    User ||--o{ TimeSlot : "has"
-    User ||--o{ AIRecommendation : "has"
-    User ||--o{ Notification : "has"
-    User ||--o{ WeeklyReport : "has"
+    USERS ||--o{ TASKS : "пользователь создаёт задачи"
+    USERS ||--o{ TASK_HISTORY : "пользователь имеет историю"
+    USERS ||--o{ TIME_SLOTS : "пользователь имеет слоты"
+    USERS ||--o{ AI_RECOMMENDATIONS : "пользователь получает рекомендации"
+    USERS ||--o{ NOTIFICATIONS : "пользователь получает уведомления"
+    USERS ||--o{ WEEKLY_REPORTS : "пользователь получает отчёты"
 
-    Task ||--o{ Task : "contains subtasks"
-    Task ||--o| TimeSlot : "occupies"
-    Task ||--o{ TaskHistory : "has history"
-    Task ||--o{ AIRecommendation : "receives"
-    Task ||--o{ Notification : "triggers"
+    TASKS ||--o{ TASKS : "задача содержит подзадачи"
+    TASKS ||--o| TIME_SLOTS : "задача занимает слот"
+    TASKS ||--o{ TASK_HISTORY : "задача имеет историю"
+    TASKS ||--o{ AI_RECOMMENDATIONS : "задача получает рекомендации"
+    TASKS ||--o{ NOTIFICATIONS : "задача вызывает уведомления"
